@@ -5,4 +5,4 @@ Description: Description of imu_comm
 Version: 0.0.0
 Cflags: -I${prefix}/include
 Libs: -L${prefix}/lib -limu_comm
-Requires: roscpp std_msgs
+Requires: roscpp std_msgs message_generation
