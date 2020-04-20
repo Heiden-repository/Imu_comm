@@ -12,7 +12,7 @@
 #include <mutex>
 
 #define imu_info_number 6
-#define per_imu_info 6
+#define per_imu_info 7
 
 #define roll_value 0
 #define pitch_value 1
@@ -30,6 +30,15 @@ class Imu_comm
         int serial_port;
         char str_imu_info[imu_info_number][per_imu_info];
         int buffer_size;
+
+        int protocol_num;
+        bool copy_start;
+        char str_roll[8];
+        char str_pitch[8];
+        char str_yaw[8];
+        char str_vel_x[8];
+        char str_vel_y[8];
+        char str_vel_z[8];
 
         float roll;
         float pitch;
@@ -54,7 +63,7 @@ class Imu_comm
 
         void runLoop(void);
 
-        Imu_comm(ros::NodeHandle &_nh):buffer_size(imu_info_number*per_imu_info),
+        Imu_comm(ros::NodeHandle &_nh):buffer_size(imu_info_number*per_imu_info),copy_start(0),protocol_num(1),
         nh_(_nh),serial_port(0),msg_seq(1),roll(0.0),pitch(0.0),yaw(0.0),acc_vel_x(0.0),acc_vel_y(0.0),acc_vel_z(0.0)
         {
             serial_connect();
