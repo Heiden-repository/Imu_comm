@@ -21,6 +21,25 @@
 #define acc_vel_y_value 4
 #define acc_vel_z_value 5
 
+#define ARRAY_LEN(X) (sizeof(X)/sizeof(X[0]))
+
+#define ascii_partition 44
+#define ascii_start     42
+#define ascii_send_start 60
+#define ascii_send_end 62
+
+#define baudrate "sb"
+#define output_rate "sor"
+
+#define baudrate_9600 1
+#define baudrate_19200 2
+#define baudrate_38400 3
+#define baudrate_57600 4
+#define baudrate_115200 5
+#define baudrate_230400 6
+#define baudrate_460800 7
+#define baudrate_921600 8
+
 
 class Imu_comm
 {   
@@ -33,12 +52,13 @@ class Imu_comm
 
         int protocol_num;
         bool copy_start;
-        char str_roll[8];
-        char str_pitch[8];
-        char str_yaw[8];
-        char str_vel_x[8];
-        char str_vel_y[8];
-        char str_vel_z[8];
+        char* send_serial_protocol;
+        // char str_roll[8];
+        // char str_pitch[8];
+        // char str_yaw[8];
+        // char str_vel_x[8];
+        // char str_vel_y[8];
+        // char str_vel_z[8];
 
         float roll;
         float pitch;
@@ -49,9 +69,10 @@ class Imu_comm
 
         int msg_seq;
 
+        void initvalue(void);
         bool serial_connect(void);
         unsigned char calcChecksum(unsigned char *data, int leng);
-        void send_serial(void);
+        bool send_serial(char* cmd);
         void receive_serial(void);
         void make_imu_info(void);
 
@@ -66,6 +87,7 @@ class Imu_comm
         Imu_comm(ros::NodeHandle &_nh):buffer_size(imu_info_number*per_imu_info),copy_start(0),protocol_num(1),
         nh_(_nh),serial_port(0),msg_seq(1),roll(0.0),pitch(0.0),yaw(0.0),acc_vel_x(0.0),acc_vel_y(0.0),acc_vel_z(0.0)
         {
+            initvalue();
             serial_connect();
             initPublisher(nh_);
         }

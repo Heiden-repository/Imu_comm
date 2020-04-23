@@ -1,5 +1,9 @@
 #include "imu_comm/imu_comm.hpp"
 
+void Imu_comm::initvalue(void)
+{
+}
+
 void Imu_comm::initPublisher(ros::NodeHandle &nh_)
 {
      imu_info_pub = nh_.advertise<imu_comm::imu_info>("/imu_info", 10);
@@ -72,59 +76,39 @@ void Imu_comm::receive_serial()
         return;
     }
 
-    if (check_buffer[0] == 42)
+    if (check_buffer[0] == ascii_start)
     {
         int protocol_num = 0;
         char for_checking[1];
 
         for (; protocol_num < imu_info_number; protocol_num++)
         {
+            receive_data = read(serial_port, data_buf, 5);
+            std::strcat(str_imu_info[protocol_num], data_buf);
             receive_data = read(serial_port, for_checking, 1);
-
-            if (for_checking[0] == 45)
-            {
-                std::strcat(str_imu_info[protocol_num], for_checking);
-                receive_data = read(serial_port, data_buf, 4);
-                std::strcat(str_imu_info[protocol_num], data_buf);
-                receive_data = read(serial_port, for_checking, 1);
-                if (for_checking[0] == 44)
-                    ;
-                else
-                {
-                    std::strcat(str_imu_info[protocol_num], for_checking);
-                    receive_data = read(serial_port, for_checking, 1);
-                    if (for_checking[0] == 44)
-                        ;
-                    else
-                    {
-                        std::strcat(str_imu_info[protocol_num], for_checking);
-                        receive_data = read(serial_port, for_checking, 1);
-                    }
-                }
-            }
+            if (for_checking[0] == ascii_partition)
+                ;
             else
             {
                 std::strcat(str_imu_info[protocol_num], for_checking);
-                receive_data = read(serial_port, data_buf, 4);
-                std::strcat(str_imu_info[protocol_num], data_buf);
                 receive_data = read(serial_port, for_checking, 1);
-                if (for_checking[0] == 44)
+                if (for_checking[0] == ascii_partition)
                     ;
                 else
                 {
                     std::strcat(str_imu_info[protocol_num], for_checking);
                     receive_data = read(serial_port, for_checking, 1);
-                    if (for_checking[0] == 44)
-                        ;
+                    if (for_checking[0] == ascii_partition)   ;         
                     else
                     {
                         std::strcat(str_imu_info[protocol_num], for_checking);
-                        receive_data = read(serial_port, for_checking, 1);
+                        printf("checking : %c \n",for_checking[0]);
                     }
                 }
             }
+            //receive_data = read(serial_port, for_throwing, 1);
+            
         }
-
         roll = atof(str_imu_info[roll_value]);
         pitch = atof(str_imu_info[pitch_value]);
         yaw = atof(str_imu_info[yaw_value]);
@@ -137,8 +121,9 @@ void Imu_comm::receive_serial()
         memset(str_imu_info[acc_vel_x_value], 0, per_imu_info);
         memset(str_imu_info[acc_vel_y_value], 0, per_imu_info);
         memset(str_imu_info[acc_vel_z_value], 0, per_imu_info);
-        printf("roll : %.2lf pitch : %.2lf yaw : %.2lf vel_x : %.2lf vel_y : %.2lf vel_z : %.2lf\n", roll, pitch, yaw, acc_vel_x, acc_vel_y, acc_vel_z);
+        //printf("roll : %.2lf pitch : %.2lf yaw : %.2lf vel_x : %.2lf vel_y : %.2lf vel_z : %.2lf\n", roll, pitch, yaw, acc_vel_x, acc_vel_y, acc_vel_z);
     }
+}
 
     // int receive_data = -1;
     // int buf_end = 0;
@@ -221,6 +206,13 @@ void Imu_comm::receive_serial()
     //         return;
     //     }
     // }
+
+bool Imu_comm::send_serial(char* cmd)
+{
+    send_serial_protocol = ascii_send_start + cmd + ascii_send_end;
+    int send_serial_protocol_size = ARRAY_LEN(send_serial_protocol);
+    int write_size = write(serial_port, send_serial_protocol, send_serial_protocol_size);
+    printf("write_size : %d\n", write_size);
 }
 
 unsigned char Imu_comm::calcChecksum(unsigned char *data, int leng)
@@ -238,12 +230,12 @@ unsigned char Imu_comm::calcChecksum(unsigned char *data, int leng)
 void Imu_comm::runLoop()
 {
     
-    ros::Rate r(10000);
+    ros::Rate r(1000);
 
     while (ros::ok())
     {
         receive_serial();
-        make_imu_info();
+        //make_imu_info();
         //printf("receive call\n");
         //make_imu_info();
         //printf("roll : %d pitch : %d yaw : %d\n",roll,pitch,yaw);
