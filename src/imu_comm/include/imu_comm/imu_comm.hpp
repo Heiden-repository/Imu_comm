@@ -24,7 +24,13 @@
 #define ARRAY_LEN(X) (sizeof(X)/sizeof(X[0]))
 
 #define ascii_partition 44
-#define ascii_start     42
+#define ascii_recieve_start 42
+#define ascii_recieve_end_first 13
+#define ascii_recieve_end_second 10
+#define ascii_num_start 48
+#define ascii_num_end  57
+#define ascii_minus 45
+#define ascii_point 46
 #define ascii_send_start 60
 #define ascii_send_end 62
 
@@ -50,7 +56,6 @@ class Imu_comm
         char str_imu_info[imu_info_number][per_imu_info];
         int buffer_size;
 
-        int protocol_num;
         bool copy_start;
         char* send_serial_protocol;
         // char str_roll[8];
@@ -73,7 +78,7 @@ class Imu_comm
         bool serial_connect(void);
         unsigned char calcChecksum(unsigned char *data, int leng);
         bool send_serial(char* cmd);
-        void receive_serial(void);
+        bool receive_serial(void);
         void make_imu_info(void);
 
         //Publisher
@@ -84,7 +89,7 @@ class Imu_comm
 
         void runLoop(void);
 
-        Imu_comm(ros::NodeHandle &_nh):buffer_size(imu_info_number*per_imu_info),copy_start(0),protocol_num(1),
+        Imu_comm(ros::NodeHandle &_nh):buffer_size(imu_info_number*per_imu_info),copy_start(1),
         nh_(_nh),serial_port(0),msg_seq(1),roll(0.0),pitch(0.0),yaw(0.0),acc_vel_x(0.0),acc_vel_y(0.0),acc_vel_z(0.0)
         {
             initvalue();
