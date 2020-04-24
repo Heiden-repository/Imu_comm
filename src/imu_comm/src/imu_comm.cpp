@@ -2,11 +2,17 @@
 
 void Imu_comm::initvalue(void)
 {
+    memset(str_imu_info[roll_value], 0, per_imu_info);
+    memset(str_imu_info[pitch_value], 0, per_imu_info);
+    memset(str_imu_info[yaw_value], 0, per_imu_info);
+    memset(str_imu_info[acc_vel_x_value], 0, per_imu_info);
+    memset(str_imu_info[acc_vel_y_value], 0, per_imu_info);
+    memset(str_imu_info[acc_vel_z_value], 0, per_imu_info);
 }
 
 void Imu_comm::initPublisher(ros::NodeHandle &nh_)
 {
-     imu_info_pub = nh_.advertise<imu_comm::imu_info>("/imu_info", 10);
+    imu_info_pub = nh_.advertise<imu_comm::imu_info>("/imu_info", 10);
 }
 
 bool Imu_comm::serial_connect()
@@ -65,6 +71,17 @@ void Imu_comm::make_imu_info()
 bool Imu_comm::receive_serial()
 {
     int receive_data = -1;
+    int write_data = -1;
+    char for_writing[1]={'*'};
+    
+    while(1)
+    {
+        write_data =  write(serial_port,for_writing,1);
+        if(write_data > 0) 
+        {
+            break;
+        }
+    }
 
     char check_buffer[1];
     char data_buf[1];
@@ -79,11 +96,11 @@ bool Imu_comm::receive_serial()
 
     if (check_buffer[0] == ascii_recieve_start)
     {
-        bool stop = false;
         int protocol_num = 0;
-        while (!stop)
+        while (1)
         {
             receive_data = read(serial_port, data_buf, 1);
+            
             if (data_buf[0] == ascii_minus || data_buf[0] == ascii_point || ((data_buf[0] >= ascii_num_start) && (data_buf[0] <= ascii_num_end)))
                 std::strcat(str_imu_info[protocol_num], data_buf);
             else if (data_buf[0] == ascii_partition)
@@ -91,9 +108,11 @@ bool Imu_comm::receive_serial()
             else if (data_buf[0] == ascii_recieve_end_first)
             {
                 receive_data = read(serial_port, for_throwing, 1);
-                stop = true;
-            }    
+                break;
+            }
+             memset(data_buf, 0, 1);
         }
+
         roll = atof(str_imu_info[roll_value]);
         pitch = atof(str_imu_info[pitch_value]);
         yaw = atof(str_imu_info[yaw_value]);
@@ -113,87 +132,6 @@ bool Imu_comm::receive_serial()
 
     return 1;
 }
-
-// int receive_data = -1;
-// int buf_end = 0;
-
-// char data_buf[0];
-
-// receive_data = read(serial_port, data_buf, 1);
-
-// if (receive_data < 0)
-// {
-//     printf("receive_data error \n");
-//     return;
-// }
-
-// if (*data_buf == '*')
-// {
-//     copy_start = true;
-//     return;
-// }
-// if (copy_start)
-// {
-//     if (*data_buf == ',')
-//     {
-//         protocol_num++;
-//         return;
-//     }
-//     if (protocol_num == 1)
-//     {
-//         std::strcat(str_roll, data_buf);
-//         return;
-//     }
-//     else if (protocol_num == 2)
-//     {
-//         std::strcat(str_pitch, data_buf);
-//         return;
-//     }
-//     else if (protocol_num == 3)
-//     {
-//         std::strcat(str_yaw, data_buf);
-//         return;
-//     }
-//     else if (protocol_num == 4)
-//     {
-//         std::strcat(str_vel_x, data_buf);
-//         return;
-//     }
-//     else if (protocol_num == 5)
-//     {
-//         std::strcat(str_vel_y, data_buf);
-//         return;
-//     }
-//     else if (protocol_num == 6)
-//     {
-//         std::strcat(str_vel_z, data_buf);
-//         return;
-//     }
-//     else if (protocol_num == 7)
-//     {
-//         return;
-//     }
-//     else
-//     {
-//         copy_start = false;
-//         protocol_num = 1;
-//         //printf("roll : %s pitch : %s yaw : %s\n",str_roll,str_pitch,str_yaw);
-//         roll = atof(str_roll);
-//         pitch = atof(str_pitch);
-//         yaw = atof(str_yaw);
-//         acc_vel_x = atof(str_vel_x);
-//         acc_vel_y = atof(str_vel_y);
-//         acc_vel_z = atof(str_vel_z);
-//         str_roll[0] = {0,};
-//         str_pitch[0] = {0,};
-//         str_yaw[0] = {0,};
-//         str_vel_x[0] = {0,};
-//         str_vel_y[0] = {0,};
-//         str_vel_z[0] = {0,};
-//         printf("roll : %.2lf pitch : %.2lf yaw : %.2lf vel_x : %.2lf vel_y : %.2lf vel_z : %.2lf\n",roll,pitch,yaw,acc_vel_x,acc_vel_y,acc_vel_z);
-//         return;
-//     }
-// }
 
 bool Imu_comm::send_serial(char* cmd)
 {
@@ -226,9 +164,8 @@ void Imu_comm::runLoop()
             copy_start = receive_serial();
         }
 
-        //make_imu_info();
-        printf("receive call\n");
-        //make_imu_info();
+        make_imu_info();
+ 
         //printf("roll : %d pitch : %d yaw : %d\n",roll,pitch,yaw);
 
         r.sleep();
