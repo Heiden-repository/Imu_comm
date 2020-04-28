@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/imu_comm_generate_messages_eus"
   "/home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/msg/imu_info.l"
+  "/home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/srv/imu_comm_param.l"
   "/home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/manifest.l"
 )
 

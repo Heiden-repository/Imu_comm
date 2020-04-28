@@ -37,6 +37,10 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/imu_comm/srv" TYPE FILE FILES "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv")
+endif()
+
+if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/imu_comm/cmake" TYPE FILE FILES "/home/heeseok/imu_ws/build/imu_comm/catkin_generated/installspace/imu_comm-msg-paths.cmake")
 endif()
 

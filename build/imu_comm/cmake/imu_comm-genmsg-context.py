@@ -1,7 +1,7 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
 messages_str = "/home/heeseok/imu_ws/src/imu_comm/msg/imu_info.msg"
-services_str = ""
+services_str = "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv"
 pkg_name = "imu_comm"
 dependencies_str = "std_msgs"
 langs = "gencpp;geneus;genlisp;gennodejs;genpy"

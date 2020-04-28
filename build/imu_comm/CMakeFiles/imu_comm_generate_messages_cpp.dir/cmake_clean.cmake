@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/imu_comm_generate_messages_cpp"
   "/home/heeseok/imu_ws/devel/include/imu_comm/imu_info.h"
+  "/home/heeseok/imu_ws/devel/include/imu_comm/imu_comm_param.h"
 )
 
 # Per-language clean rules from dependency scanning.

@@ -57,6 +57,7 @@ CMAKE_BINARY_DIR = /home/heeseok/imu_ws/build
 include imu_comm/CMakeFiles/imu_comm_generate_messages_eus.dir/progress.make
 
 imu_comm/CMakeFiles/imu_comm_generate_messages_eus: /home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/msg/imu_info.l
+imu_comm/CMakeFiles/imu_comm_generate_messages_eus: /home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/srv/imu_comm_param.l
 imu_comm/CMakeFiles/imu_comm_generate_messages_eus: /home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/manifest.l
 
 
@@ -66,12 +67,19 @@ imu_comm/CMakeFiles/imu_comm_generate_messages_eus: /home/heeseok/imu_ws/devel/s
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/heeseok/imu_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from imu_comm/imu_info.msg"
 	cd /home/heeseok/imu_ws/build/imu_comm && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/heeseok/imu_ws/src/imu_comm/msg/imu_info.msg -Iimu_comm:/home/heeseok/imu_ws/src/imu_comm/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p imu_comm -o /home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/msg
 
+/home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/srv/imu_comm_param.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
+/home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/srv/imu_comm_param.l: /home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv
+/home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/srv/imu_comm_param.l: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/heeseok/imu_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from imu_comm/imu_comm_param.srv"
+	cd /home/heeseok/imu_ws/build/imu_comm && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv -Iimu_comm:/home/heeseok/imu_ws/src/imu_comm/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p imu_comm -o /home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/srv
+
 /home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/manifest.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/heeseok/imu_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp manifest code for imu_comm"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/heeseok/imu_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp manifest code for imu_comm"
 	cd /home/heeseok/imu_ws/build/imu_comm && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm imu_comm std_msgs
 
 imu_comm_generate_messages_eus: imu_comm/CMakeFiles/imu_comm_generate_messages_eus
 imu_comm_generate_messages_eus: /home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/msg/imu_info.l
+imu_comm_generate_messages_eus: /home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/srv/imu_comm_param.l
 imu_comm_generate_messages_eus: /home/heeseok/imu_ws/devel/share/roseus/ros/imu_comm/manifest.l
 imu_comm_generate_messages_eus: imu_comm/CMakeFiles/imu_comm_generate_messages_eus.dir/build.make
 

@@ -57,6 +57,7 @@ CMAKE_BINARY_DIR = /home/heeseok/imu_ws/build
 include imu_comm/CMakeFiles/imu_comm_generate_messages_nodejs.dir/progress.make
 
 imu_comm/CMakeFiles/imu_comm_generate_messages_nodejs: /home/heeseok/imu_ws/devel/share/gennodejs/ros/imu_comm/msg/imu_info.js
+imu_comm/CMakeFiles/imu_comm_generate_messages_nodejs: /home/heeseok/imu_ws/devel/share/gennodejs/ros/imu_comm/srv/imu_comm_param.js
 
 
 /home/heeseok/imu_ws/devel/share/gennodejs/ros/imu_comm/msg/imu_info.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
@@ -65,8 +66,15 @@ imu_comm/CMakeFiles/imu_comm_generate_messages_nodejs: /home/heeseok/imu_ws/deve
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/heeseok/imu_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from imu_comm/imu_info.msg"
 	cd /home/heeseok/imu_ws/build/imu_comm && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/heeseok/imu_ws/src/imu_comm/msg/imu_info.msg -Iimu_comm:/home/heeseok/imu_ws/src/imu_comm/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p imu_comm -o /home/heeseok/imu_ws/devel/share/gennodejs/ros/imu_comm/msg
 
+/home/heeseok/imu_ws/devel/share/gennodejs/ros/imu_comm/srv/imu_comm_param.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
+/home/heeseok/imu_ws/devel/share/gennodejs/ros/imu_comm/srv/imu_comm_param.js: /home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv
+/home/heeseok/imu_ws/devel/share/gennodejs/ros/imu_comm/srv/imu_comm_param.js: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/heeseok/imu_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from imu_comm/imu_comm_param.srv"
+	cd /home/heeseok/imu_ws/build/imu_comm && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv -Iimu_comm:/home/heeseok/imu_ws/src/imu_comm/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p imu_comm -o /home/heeseok/imu_ws/devel/share/gennodejs/ros/imu_comm/srv
+
 imu_comm_generate_messages_nodejs: imu_comm/CMakeFiles/imu_comm_generate_messages_nodejs
 imu_comm_generate_messages_nodejs: /home/heeseok/imu_ws/devel/share/gennodejs/ros/imu_comm/msg/imu_info.js
+imu_comm_generate_messages_nodejs: /home/heeseok/imu_ws/devel/share/gennodejs/ros/imu_comm/srv/imu_comm_param.js
 imu_comm_generate_messages_nodejs: imu_comm/CMakeFiles/imu_comm_generate_messages_nodejs.dir/build.make
 
 .PHONY : imu_comm_generate_messages_nodejs

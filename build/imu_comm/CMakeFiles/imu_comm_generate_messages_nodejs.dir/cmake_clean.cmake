@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/imu_comm_generate_messages_nodejs"
   "/home/heeseok/imu_ws/devel/share/gennodejs/ros/imu_comm/msg/imu_info.js"
+  "/home/heeseok/imu_ws/devel/share/gennodejs/ros/imu_comm/srv/imu_comm_param.js"
 )
 
 # Per-language clean rules from dependency scanning.

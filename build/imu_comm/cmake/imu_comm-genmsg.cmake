@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "imu_comm: 1 messages, 0 services")
+message(STATUS "imu_comm: 1 messages, 1 services")
 
 set(MSG_I_FLAGS "-Iimu_comm:/home/heeseok/imu_ws/src/imu_comm/msg;-Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg")
 
@@ -16,6 +16,11 @@ add_custom_target(imu_comm_generate_messages ALL)
 # verify that message/service dependencies have not changed since configure
 
 
+
+get_filename_component(_filename "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv" NAME_WE)
+add_custom_target(_imu_comm_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "imu_comm" "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv" "std_msgs/Header"
+)
 
 get_filename_component(_filename "/home/heeseok/imu_ws/src/imu_comm/msg/imu_info.msg" NAME_WE)
 add_custom_target(_imu_comm_generate_messages_check_deps_${_filename}
@@ -36,6 +41,12 @@ _generate_msg_cpp(imu_comm
 )
 
 ### Generating Services
+_generate_srv_cpp(imu_comm
+  "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/imu_comm
+)
 
 ### Generating Module File
 _generate_module_cpp(imu_comm
@@ -49,6 +60,8 @@ add_custom_target(imu_comm_generate_messages_cpp
 add_dependencies(imu_comm_generate_messages imu_comm_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
+get_filename_component(_filename "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv" NAME_WE)
+add_dependencies(imu_comm_generate_messages_cpp _imu_comm_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/heeseok/imu_ws/src/imu_comm/msg/imu_info.msg" NAME_WE)
 add_dependencies(imu_comm_generate_messages_cpp _imu_comm_generate_messages_check_deps_${_filename})
 
@@ -69,6 +82,12 @@ _generate_msg_eus(imu_comm
 )
 
 ### Generating Services
+_generate_srv_eus(imu_comm
+  "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/imu_comm
+)
 
 ### Generating Module File
 _generate_module_eus(imu_comm
@@ -82,6 +101,8 @@ add_custom_target(imu_comm_generate_messages_eus
 add_dependencies(imu_comm_generate_messages imu_comm_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
+get_filename_component(_filename "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv" NAME_WE)
+add_dependencies(imu_comm_generate_messages_eus _imu_comm_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/heeseok/imu_ws/src/imu_comm/msg/imu_info.msg" NAME_WE)
 add_dependencies(imu_comm_generate_messages_eus _imu_comm_generate_messages_check_deps_${_filename})
 
@@ -102,6 +123,12 @@ _generate_msg_lisp(imu_comm
 )
 
 ### Generating Services
+_generate_srv_lisp(imu_comm
+  "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/imu_comm
+)
 
 ### Generating Module File
 _generate_module_lisp(imu_comm
@@ -115,6 +142,8 @@ add_custom_target(imu_comm_generate_messages_lisp
 add_dependencies(imu_comm_generate_messages imu_comm_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
+get_filename_component(_filename "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv" NAME_WE)
+add_dependencies(imu_comm_generate_messages_lisp _imu_comm_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/heeseok/imu_ws/src/imu_comm/msg/imu_info.msg" NAME_WE)
 add_dependencies(imu_comm_generate_messages_lisp _imu_comm_generate_messages_check_deps_${_filename})
 
@@ -135,6 +164,12 @@ _generate_msg_nodejs(imu_comm
 )
 
 ### Generating Services
+_generate_srv_nodejs(imu_comm
+  "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/imu_comm
+)
 
 ### Generating Module File
 _generate_module_nodejs(imu_comm
@@ -148,6 +183,8 @@ add_custom_target(imu_comm_generate_messages_nodejs
 add_dependencies(imu_comm_generate_messages imu_comm_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
+get_filename_component(_filename "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv" NAME_WE)
+add_dependencies(imu_comm_generate_messages_nodejs _imu_comm_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/heeseok/imu_ws/src/imu_comm/msg/imu_info.msg" NAME_WE)
 add_dependencies(imu_comm_generate_messages_nodejs _imu_comm_generate_messages_check_deps_${_filename})
 
@@ -168,6 +205,12 @@ _generate_msg_py(imu_comm
 )
 
 ### Generating Services
+_generate_srv_py(imu_comm
+  "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/kinetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/imu_comm
+)
 
 ### Generating Module File
 _generate_module_py(imu_comm
@@ -181,6 +224,8 @@ add_custom_target(imu_comm_generate_messages_py
 add_dependencies(imu_comm_generate_messages imu_comm_generate_messages_py)
 
 # add dependencies to all check dependencies targets
+get_filename_component(_filename "/home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv" NAME_WE)
+add_dependencies(imu_comm_generate_messages_py _imu_comm_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/heeseok/imu_ws/src/imu_comm/msg/imu_info.msg" NAME_WE)
 add_dependencies(imu_comm_generate_messages_py _imu_comm_generate_messages_check_deps_${_filename})
 

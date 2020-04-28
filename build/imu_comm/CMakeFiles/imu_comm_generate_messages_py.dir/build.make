@@ -57,7 +57,9 @@ CMAKE_BINARY_DIR = /home/heeseok/imu_ws/build
 include imu_comm/CMakeFiles/imu_comm_generate_messages_py.dir/progress.make
 
 imu_comm/CMakeFiles/imu_comm_generate_messages_py: /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/msg/_imu_info.py
+imu_comm/CMakeFiles/imu_comm_generate_messages_py: /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv/_imu_comm_param.py
 imu_comm/CMakeFiles/imu_comm_generate_messages_py: /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/msg/__init__.py
+imu_comm/CMakeFiles/imu_comm_generate_messages_py: /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv/__init__.py
 
 
 /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/msg/_imu_info.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
@@ -66,14 +68,29 @@ imu_comm/CMakeFiles/imu_comm_generate_messages_py: /home/heeseok/imu_ws/devel/li
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/heeseok/imu_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG imu_comm/imu_info"
 	cd /home/heeseok/imu_ws/build/imu_comm && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/heeseok/imu_ws/src/imu_comm/msg/imu_info.msg -Iimu_comm:/home/heeseok/imu_ws/src/imu_comm/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p imu_comm -o /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/msg
 
+/home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv/_imu_comm_param.py: /opt/ros/kinetic/lib/genpy/gensrv_py.py
+/home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv/_imu_comm_param.py: /home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv
+/home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv/_imu_comm_param.py: /opt/ros/kinetic/share/std_msgs/msg/Header.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/heeseok/imu_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python code from SRV imu_comm/imu_comm_param"
+	cd /home/heeseok/imu_ws/build/imu_comm && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/gensrv_py.py /home/heeseok/imu_ws/src/imu_comm/srv/imu_comm_param.srv -Iimu_comm:/home/heeseok/imu_ws/src/imu_comm/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p imu_comm -o /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv
+
 /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/msg/__init__.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
 /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/msg/__init__.py: /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/msg/_imu_info.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/heeseok/imu_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python msg __init__.py for imu_comm"
+/home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/msg/__init__.py: /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv/_imu_comm_param.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/heeseok/imu_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python msg __init__.py for imu_comm"
 	cd /home/heeseok/imu_ws/build/imu_comm && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/msg --initpy
+
+/home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv/__init__.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
+/home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv/__init__.py: /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/msg/_imu_info.py
+/home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv/__init__.py: /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv/_imu_comm_param.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/heeseok/imu_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python srv __init__.py for imu_comm"
+	cd /home/heeseok/imu_ws/build/imu_comm && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv --initpy
 
 imu_comm_generate_messages_py: imu_comm/CMakeFiles/imu_comm_generate_messages_py
 imu_comm_generate_messages_py: /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/msg/_imu_info.py
+imu_comm_generate_messages_py: /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv/_imu_comm_param.py
 imu_comm_generate_messages_py: /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/msg/__init__.py
+imu_comm_generate_messages_py: /home/heeseok/imu_ws/devel/lib/python2.7/dist-packages/imu_comm/srv/__init__.py
 imu_comm_generate_messages_py: imu_comm/CMakeFiles/imu_comm_generate_messages_py.dir/build.make
 
 .PHONY : imu_comm_generate_messages_py
