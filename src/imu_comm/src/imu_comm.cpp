@@ -23,10 +23,10 @@ void Imu_comm::initvalue(void)
     memset(str_imu_info[acc_vel_z_value], 0, per_imu_info);
 }
 
-void Imu_comm::initPublisher(ros::NodeHandle &nh_)
+void Imu_comm::initPublisher()
 {
     imu_info_pub = nh_.advertise<imu_comm::imu_info>("/imu_info", 10);
-    //imu_comm_setting_server = nh_.advertiseService("/imu_setting_srv",&Imu_comm::send_serial);
+    imu_comm_setting_server = nh_.advertiseService("/imu_comm_param", &Imu_comm::send_serial, this);
 }
 
 bool Imu_comm::serial_connect()
@@ -186,14 +186,24 @@ bool Imu_comm::receive_serial()
     return 1;
 }
 
-bool Imu_comm::send_serial(imu_comm::imu_comm_param::Request &imu_setting_srv)
+bool Imu_comm::send_serial(imu_comm::imu_comm_param::Request &imu_setting_srv_req, imu_comm::imu_comm_param::Response &imu_setting_srv_res)
 {
-    // char cmd = (char)imu_setting_srv.command_name;
-    // char data = (char)imu_setting_srv.data;
-    // send_serial_protocol = (char)ascii_send_start + cmd + data + (char)ascii_send_end;
-    // int send_serial_protocol_size = ARRAY_LEN(send_serial_protocol);
-    // int write_size = write(serial_port, send_serial_protocol, send_serial_protocol_size);
-    // printf("write_size : %d\n", write_size);
+    std::string str_cmd = imu_setting_srv_req.command_name;
+    std::string str_data = imu_setting_srv_req.data;
+
+    const char* cmd = str_cmd.c_str();
+    const char* data = str_data.c_str();
+
+    const char chr_ascii_send_start = (char)ascii_send_start;
+    const char chr_ascii_send_end = (char)ascii_send_end;
+
+    std::strcat(send_serial_protocol, cmd);
+    std::strcat(send_serial_protocol, data);
+
+    int send_serial_protocol_size = ARRAY_LEN(send_serial_protocol);
+    int write_size = write(serial_port, send_serial_protocol, send_serial_protocol_size);
+
+    return true;
 }
 
 void Imu_comm::runLoop()

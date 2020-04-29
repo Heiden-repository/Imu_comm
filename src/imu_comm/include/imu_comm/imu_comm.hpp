@@ -40,9 +40,6 @@
 #define ascii_send_start 60
 #define ascii_send_end 62
 
-#define baudrate "sb"
-#define output_rate "sor"
-
 #define baudrate_9600 1
 #define baudrate_19200 2
 #define baudrate_38400 3
@@ -55,7 +52,7 @@
 class Imu_comm
 {   
     private:
-        ros::NodeHandle nh_;
+        ros::NodeHandle &nh_;
 
         int serial_port;
         char str_imu_info[imu_info_number][per_imu_info];
@@ -88,14 +85,14 @@ class Imu_comm
         std::chrono::system_clock::time_point recieve_time;
 
         void initvalue(void);
+        void initPublisher(void);
         bool serial_connect(void);
-        bool send_serial(imu_comm::imu_comm_param::Request&);
+        bool send_serial(imu_comm::imu_comm_param::Request&,imu_comm::imu_comm_param::Response&);
         bool receive_serial(void);
         void make_imu_info(void);
 
         //Publisher
         ros::Publisher imu_info_pub;
-        void initPublisher(ros::NodeHandle &nh_);
 
         //Subscriber
         ros::ServiceServer imu_comm_setting_server;
@@ -109,7 +106,7 @@ class Imu_comm
         {
             initvalue();
             serial_connect();
-            initPublisher(nh_);
+            initPublisher();
         }
 
         ~Imu_comm()
