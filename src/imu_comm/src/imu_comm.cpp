@@ -75,6 +75,11 @@ void Imu_comm::make_imu_info()
     imu_info_msg.roll = roll;
     imu_info_msg.pitch = pitch;
     imu_info_msg.yaw = yaw;
+
+    imu_info_msg.acc_gyro_roll = acc_gyro_roll;
+    imu_info_msg.acc_gyro_pitch = acc_gyro_pitch;
+    imu_info_msg.acc_gyro_yaw = acc_gyro_yaw;
+
     imu_info_msg.acc_vel_x = acc_vel_x;
     imu_info_msg.acc_vel_y = acc_vel_y;
     imu_info_msg.acc_vel_z = acc_vel_z;
@@ -144,12 +149,14 @@ bool Imu_comm::receive_serial()
             std::chrono::milliseconds for_count_duration_time = std::chrono::duration_cast<std::chrono::milliseconds>(recieve_time - prev_recieve_time);
             //std::cout << "duration_time : " << for_count_duration_time.count() << " milliseconds" << std::endl;
 
-            float duration_time = for_count_duration_time.count();
+            float duration_time_milli = for_count_duration_time.count();
+            acc_gyro_roll = (gyro_roll - prev_gyro_roll) / duration_time_milli;
+            acc_gyro_pitch = (gyro_pitch - prev_gyro_pitch) / duration_time_milli;
+            acc_gyro_yaw = (gyro_yaw - prev_gyro_yaw) / duration_time_milli;
 
-            acc_gyro_roll = (gyro_roll - prev_gyro_roll) / duration_time;
-            acc_gyro_pitch = (gyro_pitch - prev_gyro_pitch) / duration_time;
-            acc_gyro_yaw = (gyro_yaw - prev_gyro_yaw) / duration_time;
-            std::cout << "acc_gyro_roll : " << acc_gyro_roll << " acc_gyro_pitch : " << acc_gyro_pitch << " acc_gyro_yaw : " << acc_gyro_yaw << std::endl;
+            std::cout << "acc_gyro_roll : " << acc_gyro_roll << std::endl;
+            std::cout << "acc_gyro_pitch : " << acc_gyro_pitch << std::endl;
+            std::cout << "acc_gyro_yaw : " << acc_gyro_yaw << std::endl;
         }
 
         prev_gyro_roll = gyro_roll;
@@ -174,6 +181,7 @@ bool Imu_comm::receive_serial()
             return 1;
         }
         //printf("roll : %.2lf pitch : %.2lf yaw : %.2lf gyro_roll : %.2f gyro_pitch : %.2lf gyro_yaw : %.2lf acc_vel_x : %.2lf acc_vel_y : %.2lf acc_vel_z : %.2lf\n", roll, pitch, yaw, gyro_roll, gyro_pitch, gyro_yaw, acc_vel_x, acc_vel_y, acc_vel_z);
+        //printf("gyro_roll : %.2f gyro_pitch : %.2lf gyro_yaw : %.2lf acc_vel_x : %.2lf acc_vel_y : %.2lf acc_vel_z : %.2lf\n", gyro_roll, gyro_pitch, gyro_yaw, acc_vel_x, acc_vel_y, acc_vel_z);
     }
     return 1;
 }
@@ -190,7 +198,7 @@ bool Imu_comm::send_serial(imu_comm::imu_comm_param::Request &imu_setting_srv)
 
 void Imu_comm::runLoop()
 {
-    ros::Rate r(100);
+    ros::Rate r(150);
 
     while (ros::ok())
     {
@@ -198,11 +206,9 @@ void Imu_comm::runLoop()
         {
             copy_start = 0;
             copy_start = receive_serial();
+            make_imu_info();
         }
-
-        //make_imu_info();
         //printf("roll : %d pitch : %d yaw : %d\n",roll,pitch,yaw);
-
         r.sleep();
     }
 }

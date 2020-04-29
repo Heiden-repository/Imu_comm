@@ -23,6 +23,9 @@ class imu_info {
       this.roll = null;
       this.pitch = null;
       this.yaw = null;
+      this.acc_gyro_roll = null;
+      this.acc_gyro_pitch = null;
+      this.acc_gyro_yaw = null;
       this.acc_vel_x = null;
       this.acc_vel_y = null;
       this.acc_vel_z = null;
@@ -51,6 +54,24 @@ class imu_info {
       }
       else {
         this.yaw = 0.0;
+      }
+      if (initObj.hasOwnProperty('acc_gyro_roll')) {
+        this.acc_gyro_roll = initObj.acc_gyro_roll
+      }
+      else {
+        this.acc_gyro_roll = 0.0;
+      }
+      if (initObj.hasOwnProperty('acc_gyro_pitch')) {
+        this.acc_gyro_pitch = initObj.acc_gyro_pitch
+      }
+      else {
+        this.acc_gyro_pitch = 0.0;
+      }
+      if (initObj.hasOwnProperty('acc_gyro_yaw')) {
+        this.acc_gyro_yaw = initObj.acc_gyro_yaw
+      }
+      else {
+        this.acc_gyro_yaw = 0.0;
       }
       if (initObj.hasOwnProperty('acc_vel_x')) {
         this.acc_vel_x = initObj.acc_vel_x
@@ -83,6 +104,12 @@ class imu_info {
     bufferOffset = _serializer.float32(obj.pitch, buffer, bufferOffset);
     // Serialize message field [yaw]
     bufferOffset = _serializer.float32(obj.yaw, buffer, bufferOffset);
+    // Serialize message field [acc_gyro_roll]
+    bufferOffset = _serializer.float32(obj.acc_gyro_roll, buffer, bufferOffset);
+    // Serialize message field [acc_gyro_pitch]
+    bufferOffset = _serializer.float32(obj.acc_gyro_pitch, buffer, bufferOffset);
+    // Serialize message field [acc_gyro_yaw]
+    bufferOffset = _serializer.float32(obj.acc_gyro_yaw, buffer, bufferOffset);
     // Serialize message field [acc_vel_x]
     bufferOffset = _serializer.float32(obj.acc_vel_x, buffer, bufferOffset);
     // Serialize message field [acc_vel_y]
@@ -104,6 +131,12 @@ class imu_info {
     data.pitch = _deserializer.float32(buffer, bufferOffset);
     // Deserialize message field [yaw]
     data.yaw = _deserializer.float32(buffer, bufferOffset);
+    // Deserialize message field [acc_gyro_roll]
+    data.acc_gyro_roll = _deserializer.float32(buffer, bufferOffset);
+    // Deserialize message field [acc_gyro_pitch]
+    data.acc_gyro_pitch = _deserializer.float32(buffer, bufferOffset);
+    // Deserialize message field [acc_gyro_yaw]
+    data.acc_gyro_yaw = _deserializer.float32(buffer, bufferOffset);
     // Deserialize message field [acc_vel_x]
     data.acc_vel_x = _deserializer.float32(buffer, bufferOffset);
     // Deserialize message field [acc_vel_y]
@@ -116,7 +149,7 @@ class imu_info {
   static getMessageSize(object) {
     let length = 0;
     length += std_msgs.msg.Header.getMessageSize(object.header);
-    return length + 24;
+    return length + 36;
   }
 
   static datatype() {
@@ -126,7 +159,7 @@ class imu_info {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '993d23e4a6233100e734c2ee81c2ee9a';
+    return '68254290c37f4da9714737632b52b84a';
   }
 
   static messageDefinition() {
@@ -137,6 +170,11 @@ class imu_info {
     float32 roll
     float32 pitch
     float32 yaw
+    
+    float32 acc_gyro_roll
+    float32 acc_gyro_pitch
+    float32 acc_gyro_yaw
+    
     float32 acc_vel_x
     float32 acc_vel_y
     float32 acc_vel_z
@@ -193,6 +231,27 @@ class imu_info {
     }
     else {
       resolved.yaw = 0.0
+    }
+
+    if (msg.acc_gyro_roll !== undefined) {
+      resolved.acc_gyro_roll = msg.acc_gyro_roll;
+    }
+    else {
+      resolved.acc_gyro_roll = 0.0
+    }
+
+    if (msg.acc_gyro_pitch !== undefined) {
+      resolved.acc_gyro_pitch = msg.acc_gyro_pitch;
+    }
+    else {
+      resolved.acc_gyro_pitch = 0.0
+    }
+
+    if (msg.acc_gyro_yaw !== undefined) {
+      resolved.acc_gyro_yaw = msg.acc_gyro_yaw;
+    }
+    else {
+      resolved.acc_gyro_yaw = 0.0
     }
 
     if (msg.acc_vel_x !== undefined) {

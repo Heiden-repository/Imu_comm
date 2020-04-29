@@ -29,6 +29,9 @@ struct imu_info_
     , roll(0.0)
     , pitch(0.0)
     , yaw(0.0)
+    , acc_gyro_roll(0.0)
+    , acc_gyro_pitch(0.0)
+    , acc_gyro_yaw(0.0)
     , acc_vel_x(0.0)
     , acc_vel_y(0.0)
     , acc_vel_z(0.0)  {
@@ -38,6 +41,9 @@ struct imu_info_
     , roll(0.0)
     , pitch(0.0)
     , yaw(0.0)
+    , acc_gyro_roll(0.0)
+    , acc_gyro_pitch(0.0)
+    , acc_gyro_yaw(0.0)
     , acc_vel_x(0.0)
     , acc_vel_y(0.0)
     , acc_vel_z(0.0)  {
@@ -57,6 +63,15 @@ struct imu_info_
 
    typedef float _yaw_type;
   _yaw_type yaw;
+
+   typedef float _acc_gyro_roll_type;
+  _acc_gyro_roll_type acc_gyro_roll;
+
+   typedef float _acc_gyro_pitch_type;
+  _acc_gyro_pitch_type acc_gyro_pitch;
+
+   typedef float _acc_gyro_yaw_type;
+  _acc_gyro_yaw_type acc_gyro_yaw;
 
    typedef float _acc_vel_x_type;
   _acc_vel_x_type acc_vel_x;
@@ -145,12 +160,12 @@ struct MD5Sum< ::imu_comm::imu_info_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "993d23e4a6233100e734c2ee81c2ee9a";
+    return "68254290c37f4da9714737632b52b84a";
   }
 
   static const char* value(const ::imu_comm::imu_info_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x993d23e4a6233100ULL;
-  static const uint64_t static_value2 = 0xe734c2ee81c2ee9aULL;
+  static const uint64_t static_value1 = 0x68254290c37f4da9ULL;
+  static const uint64_t static_value2 = 0x714737632b52b84aULL;
 };
 
 template<class ContainerAllocator>
@@ -174,6 +189,11 @@ struct Definition< ::imu_comm::imu_info_<ContainerAllocator> >
 float32 roll\n\
 float32 pitch\n\
 float32 yaw\n\
+\n\
+float32 acc_gyro_roll\n\
+float32 acc_gyro_pitch\n\
+float32 acc_gyro_yaw\n\
+\n\
 float32 acc_vel_x\n\
 float32 acc_vel_y\n\
 float32 acc_vel_z\n\
@@ -216,6 +236,9 @@ namespace serialization
       stream.next(m.roll);
       stream.next(m.pitch);
       stream.next(m.yaw);
+      stream.next(m.acc_gyro_roll);
+      stream.next(m.acc_gyro_pitch);
+      stream.next(m.acc_gyro_yaw);
       stream.next(m.acc_vel_x);
       stream.next(m.acc_vel_y);
       stream.next(m.acc_vel_z);
@@ -246,6 +269,12 @@ struct Printer< ::imu_comm::imu_info_<ContainerAllocator> >
     Printer<float>::stream(s, indent + "  ", v.pitch);
     s << indent << "yaw: ";
     Printer<float>::stream(s, indent + "  ", v.yaw);
+    s << indent << "acc_gyro_roll: ";
+    Printer<float>::stream(s, indent + "  ", v.acc_gyro_roll);
+    s << indent << "acc_gyro_pitch: ";
+    Printer<float>::stream(s, indent + "  ", v.acc_gyro_pitch);
+    s << indent << "acc_gyro_yaw: ";
+    Printer<float>::stream(s, indent + "  ", v.acc_gyro_yaw);
     s << indent << "acc_vel_x: ";
     Printer<float>::stream(s, indent + "  ", v.acc_vel_x);
     s << indent << "acc_vel_y: ";

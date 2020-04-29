@@ -16,7 +16,7 @@
 
 (defclass imu_comm::imu_info
   :super ros::object
-  :slots (_header _roll _pitch _yaw _acc_vel_x _acc_vel_y _acc_vel_z ))
+  :slots (_header _roll _pitch _yaw _acc_gyro_roll _acc_gyro_pitch _acc_gyro_yaw _acc_vel_x _acc_vel_y _acc_vel_z ))
 
 (defmethod imu_comm::imu_info
   (:init
@@ -25,6 +25,9 @@
     ((:roll __roll) 0.0)
     ((:pitch __pitch) 0.0)
     ((:yaw __yaw) 0.0)
+    ((:acc_gyro_roll __acc_gyro_roll) 0.0)
+    ((:acc_gyro_pitch __acc_gyro_pitch) 0.0)
+    ((:acc_gyro_yaw __acc_gyro_yaw) 0.0)
     ((:acc_vel_x __acc_vel_x) 0.0)
     ((:acc_vel_y __acc_vel_y) 0.0)
     ((:acc_vel_z __acc_vel_z) 0.0)
@@ -34,6 +37,9 @@
    (setq _roll (float __roll))
    (setq _pitch (float __pitch))
    (setq _yaw (float __yaw))
+   (setq _acc_gyro_roll (float __acc_gyro_roll))
+   (setq _acc_gyro_pitch (float __acc_gyro_pitch))
+   (setq _acc_gyro_yaw (float __acc_gyro_yaw))
    (setq _acc_vel_x (float __acc_vel_x))
    (setq _acc_vel_y (float __acc_vel_y))
    (setq _acc_vel_z (float __acc_vel_z))
@@ -54,6 +60,15 @@
   (:yaw
    (&optional __yaw)
    (if __yaw (setq _yaw __yaw)) _yaw)
+  (:acc_gyro_roll
+   (&optional __acc_gyro_roll)
+   (if __acc_gyro_roll (setq _acc_gyro_roll __acc_gyro_roll)) _acc_gyro_roll)
+  (:acc_gyro_pitch
+   (&optional __acc_gyro_pitch)
+   (if __acc_gyro_pitch (setq _acc_gyro_pitch __acc_gyro_pitch)) _acc_gyro_pitch)
+  (:acc_gyro_yaw
+   (&optional __acc_gyro_yaw)
+   (if __acc_gyro_yaw (setq _acc_gyro_yaw __acc_gyro_yaw)) _acc_gyro_yaw)
   (:acc_vel_x
    (&optional __acc_vel_x)
    (if __acc_vel_x (setq _acc_vel_x __acc_vel_x)) _acc_vel_x)
@@ -74,6 +89,12 @@
     4
     ;; float32 _yaw
     4
+    ;; float32 _acc_gyro_roll
+    4
+    ;; float32 _acc_gyro_pitch
+    4
+    ;; float32 _acc_gyro_yaw
+    4
     ;; float32 _acc_vel_x
     4
     ;; float32 _acc_vel_y
@@ -93,6 +114,12 @@
        (sys::poke _pitch (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
      ;; float32 _yaw
        (sys::poke _yaw (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
+     ;; float32 _acc_gyro_roll
+       (sys::poke _acc_gyro_roll (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
+     ;; float32 _acc_gyro_pitch
+       (sys::poke _acc_gyro_pitch (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
+     ;; float32 _acc_gyro_yaw
+       (sys::poke _acc_gyro_yaw (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
      ;; float32 _acc_vel_x
        (sys::poke _acc_vel_x (send s :buffer) (send s :count) :float) (incf (stream-count s) 4)
      ;; float32 _acc_vel_y
@@ -111,6 +138,12 @@
      (setq _pitch (sys::peek buf ptr- :float)) (incf ptr- 4)
    ;; float32 _yaw
      (setq _yaw (sys::peek buf ptr- :float)) (incf ptr- 4)
+   ;; float32 _acc_gyro_roll
+     (setq _acc_gyro_roll (sys::peek buf ptr- :float)) (incf ptr- 4)
+   ;; float32 _acc_gyro_pitch
+     (setq _acc_gyro_pitch (sys::peek buf ptr- :float)) (incf ptr- 4)
+   ;; float32 _acc_gyro_yaw
+     (setq _acc_gyro_yaw (sys::peek buf ptr- :float)) (incf ptr- 4)
    ;; float32 _acc_vel_x
      (setq _acc_vel_x (sys::peek buf ptr- :float)) (incf ptr- 4)
    ;; float32 _acc_vel_y
@@ -121,7 +154,7 @@
    self)
   )
 
-(setf (get imu_comm::imu_info :md5sum-) "993d23e4a6233100e734c2ee81c2ee9a")
+(setf (get imu_comm::imu_info :md5sum-) "68254290c37f4da9714737632b52b84a")
 (setf (get imu_comm::imu_info :datatype-) "imu_comm/imu_info")
 (setf (get imu_comm::imu_info :definition-)
       "Header header
@@ -129,6 +162,11 @@
 float32 roll
 float32 pitch
 float32 yaw
+
+float32 acc_gyro_roll
+float32 acc_gyro_pitch
+float32 acc_gyro_yaw
+
 float32 acc_vel_x
 float32 acc_vel_y
 float32 acc_vel_z
@@ -154,6 +192,6 @@ string frame_id
 
 
 
-(provide :imu_comm/imu_info "993d23e4a6233100e734c2ee81c2ee9a")
+(provide :imu_comm/imu_info "68254290c37f4da9714737632b52b84a")
 
 

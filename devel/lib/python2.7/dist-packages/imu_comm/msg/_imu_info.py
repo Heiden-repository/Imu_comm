@@ -8,7 +8,7 @@ import struct
 import std_msgs.msg
 
 class imu_info(genpy.Message):
-  _md5sum = "993d23e4a6233100e734c2ee81c2ee9a"
+  _md5sum = "68254290c37f4da9714737632b52b84a"
   _type = "imu_comm/imu_info"
   _has_header = True #flag to mark the presence of a Header object
   _full_text = """Header header
@@ -16,6 +16,11 @@ class imu_info(genpy.Message):
 float32 roll
 float32 pitch
 float32 yaw
+
+float32 acc_gyro_roll
+float32 acc_gyro_pitch
+float32 acc_gyro_yaw
+
 float32 acc_vel_x
 float32 acc_vel_y
 float32 acc_vel_z
@@ -37,8 +42,8 @@ time stamp
 # 1: global frame
 string frame_id
 """
-  __slots__ = ['header','roll','pitch','yaw','acc_vel_x','acc_vel_y','acc_vel_z']
-  _slot_types = ['std_msgs/Header','float32','float32','float32','float32','float32','float32']
+  __slots__ = ['header','roll','pitch','yaw','acc_gyro_roll','acc_gyro_pitch','acc_gyro_yaw','acc_vel_x','acc_vel_y','acc_vel_z']
+  _slot_types = ['std_msgs/Header','float32','float32','float32','float32','float32','float32','float32','float32','float32']
 
   def __init__(self, *args, **kwds):
     """
@@ -48,7 +53,7 @@ string frame_id
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       header,roll,pitch,yaw,acc_vel_x,acc_vel_y,acc_vel_z
+       header,roll,pitch,yaw,acc_gyro_roll,acc_gyro_pitch,acc_gyro_yaw,acc_vel_x,acc_vel_y,acc_vel_z
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -65,6 +70,12 @@ string frame_id
         self.pitch = 0.
       if self.yaw is None:
         self.yaw = 0.
+      if self.acc_gyro_roll is None:
+        self.acc_gyro_roll = 0.
+      if self.acc_gyro_pitch is None:
+        self.acc_gyro_pitch = 0.
+      if self.acc_gyro_yaw is None:
+        self.acc_gyro_yaw = 0.
       if self.acc_vel_x is None:
         self.acc_vel_x = 0.
       if self.acc_vel_y is None:
@@ -76,6 +87,9 @@ string frame_id
       self.roll = 0.
       self.pitch = 0.
       self.yaw = 0.
+      self.acc_gyro_roll = 0.
+      self.acc_gyro_pitch = 0.
+      self.acc_gyro_yaw = 0.
       self.acc_vel_x = 0.
       self.acc_vel_y = 0.
       self.acc_vel_z = 0.
@@ -101,7 +115,7 @@ string frame_id
         length = len(_x)
       buff.write(struct.pack('<I%ss'%length, length, _x))
       _x = self
-      buff.write(_get_struct_6f().pack(_x.roll, _x.pitch, _x.yaw, _x.acc_vel_x, _x.acc_vel_y, _x.acc_vel_z))
+      buff.write(_get_struct_9f().pack(_x.roll, _x.pitch, _x.yaw, _x.acc_gyro_roll, _x.acc_gyro_pitch, _x.acc_gyro_yaw, _x.acc_vel_x, _x.acc_vel_y, _x.acc_vel_z))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -129,8 +143,8 @@ string frame_id
         self.header.frame_id = str[start:end]
       _x = self
       start = end
-      end += 24
-      (_x.roll, _x.pitch, _x.yaw, _x.acc_vel_x, _x.acc_vel_y, _x.acc_vel_z,) = _get_struct_6f().unpack(str[start:end])
+      end += 36
+      (_x.roll, _x.pitch, _x.yaw, _x.acc_gyro_roll, _x.acc_gyro_pitch, _x.acc_gyro_yaw, _x.acc_vel_x, _x.acc_vel_y, _x.acc_vel_z,) = _get_struct_9f().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -152,7 +166,7 @@ string frame_id
         length = len(_x)
       buff.write(struct.pack('<I%ss'%length, length, _x))
       _x = self
-      buff.write(_get_struct_6f().pack(_x.roll, _x.pitch, _x.yaw, _x.acc_vel_x, _x.acc_vel_y, _x.acc_vel_z))
+      buff.write(_get_struct_9f().pack(_x.roll, _x.pitch, _x.yaw, _x.acc_gyro_roll, _x.acc_gyro_pitch, _x.acc_gyro_yaw, _x.acc_vel_x, _x.acc_vel_y, _x.acc_vel_z))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -181,8 +195,8 @@ string frame_id
         self.header.frame_id = str[start:end]
       _x = self
       start = end
-      end += 24
-      (_x.roll, _x.pitch, _x.yaw, _x.acc_vel_x, _x.acc_vel_y, _x.acc_vel_z,) = _get_struct_6f().unpack(str[start:end])
+      end += 36
+      (_x.roll, _x.pitch, _x.yaw, _x.acc_gyro_roll, _x.acc_gyro_pitch, _x.acc_gyro_yaw, _x.acc_vel_x, _x.acc_vel_y, _x.acc_vel_z,) = _get_struct_9f().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e) #most likely buffer underfill
@@ -197,9 +211,9 @@ def _get_struct_3I():
     if _struct_3I is None:
         _struct_3I = struct.Struct("<3I")
     return _struct_3I
-_struct_6f = None
-def _get_struct_6f():
-    global _struct_6f
-    if _struct_6f is None:
-        _struct_6f = struct.Struct("<6f")
-    return _struct_6f
+_struct_9f = None
+def _get_struct_9f():
+    global _struct_9f
+    if _struct_9f is None:
+        _struct_9f = struct.Struct("<9f")
+    return _struct_9f
