@@ -1,2 +1,0 @@
-imu_comm
--DCATKIN_DEVEL_PREFIX=/home/heeseok/imu_ws/devel -DCMAKE_INSTALL_PREFIX=/home/heeseok/imu_ws/install -G Unix Makefiles
