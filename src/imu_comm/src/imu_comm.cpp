@@ -181,7 +181,7 @@ bool Imu_comm::receive_serial()
             return 1;
         }
         //printf("roll : %.2lf pitch : %.2lf yaw : %.2lf gyro_roll : %.2f gyro_pitch : %.2lf gyro_yaw : %.2lf acc_vel_x : %.2lf acc_vel_y : %.2lf acc_vel_z : %.2lf\n", roll, pitch, yaw, gyro_roll, gyro_pitch, gyro_yaw, acc_vel_x, acc_vel_y, acc_vel_z);
-        printf("gyro_roll : %.2f gyro_pitch : %.2lf gyro_yaw : %.2lf acc_vel_x : %.2lf acc_vel_y : %.2lf acc_vel_z : %.2lf\n", gyro_roll, gyro_pitch, gyro_yaw, acc_vel_x, acc_vel_y, acc_vel_z);
+        printf("acc_gyro_roll : %.2f acc_gyro_pitch : %.2lf acc_gyro_yaw : %.2lf acc_vel_x : %.2lf acc_vel_y : %.2lf acc_vel_z : %.2lf\n", acc_gyro_roll, acc_gyro_pitch, acc_gyro_yaw, acc_vel_x, acc_vel_y, acc_vel_z);
     }
     return 1;
 }
@@ -203,7 +203,9 @@ bool Imu_comm::send_serial(imu_comm::imu_comm_param::Request &imu_setting_srv_re
     int send_serial_protocol_size = ARRAY_LEN(send_serial_protocol);
     int write_size = write(serial_port, send_serial_protocol, send_serial_protocol_size);
 
-    return true;
+    if(write_size > 0)
+        return true;
+    else return false;
 }
 
 void Imu_comm::runLoop()
