@@ -3,9 +3,9 @@ project(imu_comm)
 
 add_compile_options(-std=c++11)
 
- set(CMAKE_VERBOSE_MAKEFILE yes)
- set(CMAKE_BUILD_TYPE Debug)
- set(CMAKE_CXX_FLAGS "-O0 -DNDEBUG -std=c++11")
+set(CMAKE_VERBOSE_MAKEFILE yes)
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_CXX_FLAGS "-O0 -DNDEBUG -std=c++11")
 
 find_package(catkin REQUIRED COMPONENTS
   message_generation

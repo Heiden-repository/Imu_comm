@@ -2,3 +2,6 @@ Header header
 
 string command_name
 string data
+
+------------------
+bool result

@@ -26,6 +26,10 @@ void Imu_comm::initvalue(void)
 void Imu_comm::initPublisher()
 {
     imu_info_pub = nh_.advertise<imu_comm::imu_info>("/imu_info", 10);
+}
+
+void Imu_comm::initSubscriber()
+{
     imu_comm_setting_server = nh_.advertiseService("/imu_comm_param", &Imu_comm::send_serial, this);
 }
 
@@ -35,12 +39,12 @@ bool Imu_comm::serial_connect()
 
     while (ros::ok())
     {
-		serial_port = open( "/dev/ttyUSB0", O_RDWR | O_NOCTTY );
-		if(serial_port<0)
-		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        serial_port = open("/dev/ttyUSB0", O_RDWR | O_NOCTTY);
+        if (serial_port < 0)
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             printf("Error %i from open: %s\n", errno, strerror(errno));
-		}
+        }
         else
             break;
     }
@@ -70,11 +74,15 @@ void Imu_comm::make_imu_info()
 
     imu_info_msg.header.seq = msg_seq;
     imu_info_msg.header.stamp = ros::Time::now();
-    imu_info_msg.header.frame_id = "/imu_info";
+    imu_info_msg.header.frame_id = "imu_info";
 
     imu_info_msg.roll = roll;
     imu_info_msg.pitch = pitch;
     imu_info_msg.yaw = yaw;
+
+    imu_info_msg.gyro_roll = gyro_roll;
+    imu_info_msg.gyro_pitch = gyro_pitch;
+    imu_info_msg.gyro_yaw = gyro_yaw;
 
     imu_info_msg.acc_gyro_roll = acc_gyro_roll;
     imu_info_msg.acc_gyro_pitch = acc_gyro_pitch;
@@ -181,7 +189,7 @@ bool Imu_comm::receive_serial()
             return 1;
         }
         //printf("roll : %.2lf pitch : %.2lf yaw : %.2lf gyro_roll : %.2f gyro_pitch : %.2lf gyro_yaw : %.2lf acc_vel_x : %.2lf acc_vel_y : %.2lf acc_vel_z : %.2lf\n", roll, pitch, yaw, gyro_roll, gyro_pitch, gyro_yaw, acc_vel_x, acc_vel_y, acc_vel_z);
-        printf("acc_gyro_roll : %.2f acc_gyro_pitch : %.2lf acc_gyro_yaw : %.2lf acc_vel_x : %.2lf acc_vel_y : %.2lf acc_vel_z : %.2lf\n", acc_gyro_roll, acc_gyro_pitch, acc_gyro_yaw, acc_vel_x, acc_vel_y, acc_vel_z);
+        //printf("acc_gyro_roll : %.2f acc_gyro_pitch : %.2lf acc_gyro_yaw : %.2lf acc_vel_x : %.2lf acc_vel_y : %.2lf acc_vel_z : %.2lf\n", acc_gyro_roll, acc_gyro_pitch, acc_gyro_yaw, acc_vel_x, acc_vel_y, acc_vel_z);
     }
     return 1;
 }
@@ -191,21 +199,30 @@ bool Imu_comm::send_serial(imu_comm::imu_comm_param::Request &imu_setting_srv_re
     std::string str_cmd = imu_setting_srv_req.command_name;
     std::string str_data = imu_setting_srv_req.data;
 
-    const char* cmd = str_cmd.c_str();
-    const char* data = str_data.c_str();
+    char* chr_cmd = &str_cmd[0];
+    char* chr_data = &str_data[0];
 
-    const char chr_ascii_send_start = (char)ascii_send_start;
-    const char chr_ascii_send_end = (char)ascii_send_end;
+    char chr_ascii_send_start = (char)ascii_send_start;
+    char chr_ascii_send_end = (char)ascii_send_end;
 
-    std::strcat(send_serial_protocol, cmd);
-    std::strcat(send_serial_protocol, data);
-
+    send_serial_protocol[0] = chr_ascii_send_start;
+    std::strcat(send_serial_protocol, chr_cmd);
+    std::strcat(send_serial_protocol, chr_data);
+    
     int send_serial_protocol_size = ARRAY_LEN(send_serial_protocol);
-    int write_size = write(serial_port, send_serial_protocol, send_serial_protocol_size);
+    send_serial_protocol[send_serial_protocol_size] = chr_ascii_send_end;
 
-    if(write_size > 0)
-        return true;
-    else return false;
+    imu_setting_srv_res.result = true;
+
+    printf("send_serial_protocol : %s",send_serial_protocol);
+
+    return 1;
+
+    // int write_size = write(serial_port, send_serial_protocol, send_serial_protocol_size+1);
+
+    // if(write_size > 0)
+    //     return true;
+    // else return false;
 }
 
 void Imu_comm::runLoop()
@@ -220,6 +237,7 @@ void Imu_comm::runLoop()
             copy_start = receive_serial();
             make_imu_info();
         }
+        ros::spinOnce();
         //printf("roll : %d pitch : %d yaw : %d\n",roll,pitch,yaw);
         r.sleep();
     }

@@ -86,6 +86,7 @@ class Imu_comm
 
         void initvalue(void);
         void initPublisher(void);
+        void initSubscriber(void);
         bool serial_connect(void);
         bool send_serial(imu_comm::imu_comm_param::Request&,imu_comm::imu_comm_param::Response&);
         bool receive_serial(void);
@@ -107,6 +108,7 @@ class Imu_comm
             initvalue();
             serial_connect();
             initPublisher();
+            initSubscriber();
         }
 
         ~Imu_comm()
